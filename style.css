@@ -1,3 +1,4 @@
+/* Reset i thjeshtë */
 * {
     margin: 0;
     padding: 0;
@@ -5,56 +6,43 @@
     font-family: Arial, sans-serif;
 }
 
+/* Body */
 body {
-    background: #f3f3f3;
-}
-
-header {
-    background: #005BBB;
-    padding: 20px;
-    text-align: center;
-    color: white;
-}
-
-.matches-container {
-    width: 90%;
-    max-width: 600px;
-    margin: 30px auto;
-}
-
-.matches-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
+    background-color: #f3f3f3;
     color: #333;
-}
-
-.match-card {
-    background: white;
-    padding: 15px 20px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.teams {
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.score {
-    font-weight: bold;
-}
-
-.date {
-    font-size: 14px;
-    color: #666;
-}
-
-footer {
     text-align: center;
-    padding: 15px 0;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background-color: #005BBB;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Main content */
+main h2 {
+    margin-bottom: 10px;
+}
+
+.matches {
+    list-style-type: none;
+}
+
+.matches li {
+    background-color: white;
+    margin: 5px auto;
+    padding: 10px;
+    max-width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
     margin-top: 30px;
+    font-size: 14px;
     color: #555;
 }
