@@ -3,64 +3,109 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f3f3f3;
+    background-color: #f0f2f5;
     color: #333;
-    text-align: center;
-    padding: 20px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Siguron që body zgjatet për gjithë lartësinë */
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
 }
 
 header {
     background-color: #005BBB;
-    color: white;
     padding: 20px;
-    margin-bottom: 20px;
+    color: white;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
 }
 
 nav a {
-    margin: 0 10px;
+    margin: 0 15px;
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #FFD700;
 }
 
 main {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: left;
+    flex: 1;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
 }
 
-footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #555;
+.matches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
 }
 
-.matches li {
+.match-card {
     background-color: white;
-    margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.match-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.match-card .teams {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.match-card .score {
+    color: #005BBB;
+}
+
+.about-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 form {
     background-color: white;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 form input, form button {
     display: block;
     width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 form button {
@@ -68,8 +113,18 @@ form button {
     color: white;
     border: none;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 form button:hover {
     background-color: #004494;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #004494;
+    color: #ddd;
+    font-size: 14px;
 }
