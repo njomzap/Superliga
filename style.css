@@ -1,4 +1,4 @@
-/* Reset i thjeshtë */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Body */
 body {
     background-color: #f3f3f3;
     color: #333;
@@ -14,7 +13,6 @@ body {
     padding: 20px;
 }
 
-/* Header */
 header {
     background-color: #005BBB;
     color: white;
@@ -22,27 +20,56 @@ header {
     margin-bottom: 20px;
 }
 
-/* Main content */
-main h2 {
-    margin-bottom: 10px;
+nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.matches {
-    list-style-type: none;
+nav a:hover {
+    text-decoration: underline;
 }
 
-.matches li {
-    background-color: white;
-    margin: 5px auto;
-    padding: 10px;
-    max-width: 400px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
 }
 
-/* Footer */
 footer {
     margin-top: 30px;
     font-size: 14px;
     color: #555;
+}
+
+.matches li {
+    background-color: white;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+form input, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+form button {
+    background-color: #005BBB;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #004494;
 }
