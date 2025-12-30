@@ -1,3 +1,4 @@
+// app.js
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -17,14 +18,12 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Placeholder users route
-app.get("/api/users", (req, res) => {
-  res.json({ message: "Users endpoint working" });
-});
+// Users routes
+app.use("/api/users", require("./routes/users.routes"));
 
-// 404 handler
+// 404 handler (keep at the bottom)
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-module.exports = app; // 👈 THIS LINE IS CRITICAL
+module.exports = app; // 👈 critical export
