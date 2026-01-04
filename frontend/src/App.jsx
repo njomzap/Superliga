@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Register from "./pages/register";
+import Login from "./pages/login"; // <-- import Login
 import MatchesPage from "./pages/matches.jsx";
 import "./App.css";
 
@@ -10,16 +11,18 @@ function App() {
         <h1>Superliga e Futbollit</h1>
         <nav>
           <Link to="/" style={{ marginRight: "10px" }}>Home</Link>
-          <Link to="/register" style={{ marginRight: "10px" }}>Register</Link>
+          <Link to="/login" style={{ marginRight: "10px" }}>Login</Link> {/* Login link */}
           <Link to="/matches">Matches</Link>
         </nav>
       </header>
 
       <main style={{ padding: "20px" }}>
         <Routes>
-          <Route path="/" element={<h2>Welcome to Superliga</h2>} />
+          <Route path="/" element={<Login />} /> {/* Login as main page */}
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/matches" element={<MatchesPage />} />
+          <Route path="*" element={<h2>Page not found</h2>} />
         </Routes>
       </main>
     </BrowserRouter>

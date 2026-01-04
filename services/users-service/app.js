@@ -18,12 +18,13 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Users routes
-app.use("/api/users", require("./routes/users.routes"));
+// Users routes (corrected)
+const usersRoutes = require("./routes/users.routes");
+app.use("/api/users", usersRoutes);
 
-// 404 handler (keep at the bottom)
+// 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
 
-module.exports = app; // 👈 critical export
+module.exports = app;
