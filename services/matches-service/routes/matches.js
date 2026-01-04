@@ -3,6 +3,7 @@ const {
   getLatestMatches,
   getMatchesByTeam,
   getMatchesByDate,
+  getUpcomingMatches,
 } = require("../controllers/matchesController");
 
 const router = express.Router();

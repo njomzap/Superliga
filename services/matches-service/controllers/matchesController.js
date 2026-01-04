@@ -9,12 +9,11 @@ const getLatestMatches = async (req, res) => {
     const matches = matchesData.slice(-limit).map((match, index) => ({
       id: index + 1,
       date: match.date,
-      home: match.team1,
-      away: match.team2,
-      goalsHome: match.score1,
-      goalsAway: match.score2,
-      status: "FT",
-      league: "Premier League",
+      time: match.time || "TBD",
+      home: match.team1?.name || match.team1,
+      away: match.team2?.name || match.team2,
+      status: match.status || "NS",
+      league: match.league?.name || "Unknown League",
     }));
 
     res.json(matches);
@@ -61,4 +60,4 @@ const getMatchesByDate = async (req, res) => {
 
 
 
-module.exports = { getLatestMatches, getMatchesByTeam , getMatchesByDate};
+module.exports = { getLatestMatches, getUpcomingMatches, getMatchesByTeam , getMatchesByDate};
