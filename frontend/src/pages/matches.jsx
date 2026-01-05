@@ -9,12 +9,17 @@ export default function MatchesPage() {
   useEffect(() => {
     async function fetchMatches() {
       setLoading(true);
-      const res = await fetch(
-        `http://localhost:5001/api/matches?limit=${limit}`
-      );
-      const data = await res.json();
-      setMatches(data);
-      setLoading(false);
+      try {
+        const res = await fetch(
+          `http://localhost:5001/api/matches?limit=${limit}`
+        );
+        const data = await res.json();
+        setMatches(data);
+      } catch (error) {
+        console.error("Failed to fetch matches:", error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchMatches();
@@ -96,6 +101,13 @@ export default function MatchesPage() {
 }
 
 function MatchCard({ match }) {
+  const isPlayed = match.status === "FT";
+
+  // Split score into home and away if available
+  const [homeScore, awayScore] = isPlayed
+    ? match.score.split(":").map((s) => parseInt(s))
+    : ["-", "-"];
+
   return (
     <div
       style={{
@@ -109,7 +121,7 @@ function MatchCard({ match }) {
         alignItems: "center",
       }}
     >
-      {/* Left */}
+      {/* Left: Teams */}
       <div>
         <div
           style={{
@@ -134,18 +146,42 @@ function MatchCard({ match }) {
         </div>
       </div>
 
-      {/* Right */}
+      {/* Right: Score & Status */}
       <div
         style={{
-          padding: "6px 14px",
-          borderRadius: "20px",
-          backgroundColor: "#e8f5e9",
-          color: "#2e7d32",
-          fontSize: "13px",
-          fontWeight: "600",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        FT
+        {/* Scores */}
+        <div
+          style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: isPlayed ? "#222" : "#777",
+            minWidth: "60px",
+            textAlign: "center",
+          }}
+        >
+          {homeScore} : {awayScore}
+        </div>
+
+        {/* Status */}
+        <div
+          style={{
+            marginTop: "4px",
+            padding: "2px 8px",
+            borderRadius: "12px",
+            fontSize: "12px",
+            fontWeight: "600",
+            color: isPlayed ? "#2e7d32" : "#ff8f00",
+            backgroundColor: isPlayed ? "#e8f5e9" : "#fff3e0",
+          }}
+        >
+          {isPlayed ? "FT" : "UPCOMING"}
+        </div>
       </div>
     </div>
   );
