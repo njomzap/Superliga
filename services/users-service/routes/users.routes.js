@@ -105,4 +105,17 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
+// ------------------ GET ALL USERS (for stats service) ------------------
+router.get("/", async (req, res) => {
+  try {
+    const users = await pool.query(
+      "SELECT id, full_name, email, role FROM users"
+    );
+    res.json(users.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

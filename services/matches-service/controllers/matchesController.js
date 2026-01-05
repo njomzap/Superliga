@@ -10,10 +10,10 @@ const getLatestMatches = async (req, res) => {
       id: index + 1,
       date: match.date,
       time: match.time || "TBD",
-      home: match.team1?.name || match.team1,
-      away: match.team2?.name || match.team2,
-      status: match.status || "NS",
-      league: match.league?.name || "Unknown League",
+      home: match.team1,
+      away: match.team2,
+      status: "FT",
+      league: "P",
     }));
 
     res.json(matches);
@@ -60,4 +60,4 @@ const getMatchesByDate = async (req, res) => {
 
 
 
-module.exports = { getLatestMatches, getUpcomingMatches, getMatchesByTeam , getMatchesByDate};
+module.exports = { getLatestMatches, getMatchesByTeam , getMatchesByDate};
