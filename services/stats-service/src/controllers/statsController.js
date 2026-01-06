@@ -1,5 +1,8 @@
 // controllers/stats.controller.js
-const { getOverviewStats } = require("../services/stats.service");
+const {
+  getOverviewStats,
+  getStandings,
+} = require("../services/stats.service");
 
 async function overview(req, res) {
   try {
@@ -11,4 +14,17 @@ async function overview(req, res) {
   }
 }
 
-module.exports = { overview };
+async function standings(req, res) {
+  try {
+    const table = await getStandings();
+    res.json(table);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch standings" });
+  }
+}
+
+module.exports = {
+  overview,
+  standings,
+};

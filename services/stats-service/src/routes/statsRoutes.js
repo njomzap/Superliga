@@ -1,8 +1,11 @@
-// routes/stats.routes.js
 const express = require("express");
 const router = express.Router();
-const { overview } = require("../controllers/statsController");
+const {
+  overview,
+  standings,
+} = require("../controllers/statsController");
 
 router.get("/overview", overview);
+router.get("/standings", standings);
 
 module.exports = router;
