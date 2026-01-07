@@ -8,7 +8,6 @@ const {
   getHeadToHead
 } = require("../services/stats.service");
 
-// ------------------ Overview ------------------
 async function overview(req, res) {
   try {
     const stats = await getOverviewStats();
@@ -19,7 +18,7 @@ async function overview(req, res) {
   }
 }
 
-// ------------------ Standings ------------------
+
 async function standings(req, res) {
   try {
     const table = await getStandings();
@@ -30,7 +29,7 @@ async function standings(req, res) {
   }
 }
 
-// ------------------ Team Form ------------------
+
 async function teamForm(req, res) {
   try {
     const lastN = parseInt(req.query.lastN) || 5; // allow query param to change number of matches
@@ -42,7 +41,7 @@ async function teamForm(req, res) {
   }
 }
 
-// ------------------ Home/Away Stats ------------------
+
 async function homeAway(req, res) {
   try {
     const stats = await getHomeAwayStats();
@@ -53,7 +52,7 @@ async function homeAway(req, res) {
   }
 }
 
-// ------------------ Leaders ------------------
+
 async function leaders(req, res) {
   try {
     const data = await getLeaders();
@@ -64,7 +63,7 @@ async function leaders(req, res) {
   }
 }
 
-// ------------------ Streaks ------------------
+
 async function streaks(req, res) {
   try {
     const data = await getTeamStreaks();
@@ -75,7 +74,7 @@ async function streaks(req, res) {
   }
 }
 
-// ------------------ Head-to-Head ------------------
+
 async function headToHead(req, res) {
   try {
     const { teamA, teamB } = req.query;
@@ -91,33 +90,6 @@ async function headToHead(req, res) {
   }
 }
 
-// ------------------ User-Specific Stats ------------------
-async function userStats(req, res) {
-  try {
-    const userId = req.params.userId;
-
-    // TODO: Replace this with real logic to fetch matches/stats for this user
-    // For now, we return placeholder data
-    const stats = {
-      userId,
-      matchesPlayed: 12,
-      wins: 7,
-      draws: 3,
-      losses: 2,
-      lastMatches: [
-        { opponent: "Team A", result: "W" },
-        { opponent: "Team B", result: "D" },
-        { opponent: "Team C", result: "L" },
-      ],
-    };
-
-    res.json(stats);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to fetch user stats" });
-  }
-}
-
 module.exports = {
   overview,
   standings,
@@ -126,5 +98,5 @@ module.exports = {
   leaders,
   streaks,
   headToHead,
-  userStats, // ✅ new export
+ 
 };

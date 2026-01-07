@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
 import MatchesPage from "./pages/matches.jsx";
+import StatsPage from "./pages/stats.jsx"; // your stats page
 import "./App.css";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           {user ? (
             <>
               <Link to="/profile" style={{ marginRight: "10px" }}>Profile</Link>
-              <Link to="/stats">Stats</Link>
+              <Link to="/stats" style={{ marginRight: "10px" }}>Stats</Link>
             </>
           ) : (
             <Link to="/login" style={{ marginRight: "10px" }}>Login</Link>
@@ -58,7 +59,20 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile setUser={setUser} />} />
           <Route path="/matches" element={<MatchesPage />} />
-          <Route path="*" element={<h2>You need to be logged in to view stats!</h2>} />
+
+          {/* Stats route */}
+          <Route
+            path="/stats"
+            element={
+              user ? (
+                <StatsPage />
+              ) : (
+                <h2>You need to be logged in to view stats!</h2>
+              )
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </BrowserRouter>

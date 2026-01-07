@@ -8,7 +8,6 @@ const {
   leaders,
   streaks,
   headToHead,
-  userStats // new controller for user-specific stats
 } = require("../controllers/statsController");
 
 // Existing routes
@@ -20,7 +19,6 @@ router.get("/leaders", leaders);
 router.get("/streaks", streaks);
 router.get("/h2h", headToHead);
 
-// ------------------ NEW: User-specific stats ------------------
-router.get("/user/:userId", userStats);
+
 
 module.exports = router;
