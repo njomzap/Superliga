@@ -10,9 +10,7 @@ export default function MatchesPage() {
     async function fetchMatches() {
       setLoading(true);
       try {
-        const res = await fetch(
-          `http://localhost:5001/api/matches?limit=${limit}`
-        );
+        const res = await fetch(`http://localhost:5001/api/matches?limit=${limit}`);
         const data = await res.json();
         setMatches(data);
       } catch (error) {
@@ -21,7 +19,6 @@ export default function MatchesPage() {
         setLoading(false);
       }
     }
-
     fetchMatches();
   }, [limit]);
 
@@ -32,69 +29,30 @@ export default function MatchesPage() {
   );
 
   return (
-    <div
-      style={{
-        backgroundColor: "#f4f6f8",
-        minHeight: "100vh",
-        padding: "40px 20px",
-      }}
-    >
-      {/* Container */}
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ marginBottom: "30px" }}>
-          <h1 style={{ marginBottom: "10px", color: "#222" }}>
-            ⚽ Superliga Matches
-          </h1>
-          <p style={{ marginBottom: "20px", color: "#666" }}>
-            Browse recent fixtures from the league
-          </p>
+    <div>
+      <h1>⚽ Superliga Matches</h1>
+      <p>Browse the latest fixtures</p>
 
-          <input
-            type="text"
-            placeholder="Search by team name..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              width: "100%",
-              maxWidth: "500px",
-              padding: "12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "15px",
-              color: "#222",
-            }}
-          />
-        </div>
+      <input
+        type="text"
+        placeholder="Search by team..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="search-input"
+      />
 
-        {/* Matches */}
-        {loading ? (
-          <p>Loading matches...</p>
-        ) : filteredMatches.length === 0 ? (
-          <p style={{ color: "#666" }}>No matches found.</p>
-        ) : (
-          filteredMatches.map((match) => (
-            <MatchCard key={match.id} match={match} />
-          ))
-        )}
+      {loading ? (
+        <p>Loading matches...</p>
+      ) : filteredMatches.length === 0 ? (
+        <p>No matches found.</p>
+      ) : (
+        filteredMatches.map((match) => <MatchCard key={match.id} match={match} />)
+      )}
 
-        {/* Load more */}
-        <div style={{ textAlign: "center", marginTop: "30px" }}>
-          <button
-            onClick={() => setLimit((prev) => prev + 5)}
-            style={{
-              padding: "12px 28px",
-              borderRadius: "25px",
-              border: "none",
-              backgroundColor: "#1e1e1e",
-              color: "#fff",
-              fontSize: "14px",
-              cursor: "pointer",
-            }}
-          >
-            Load more matches
-          </button>
-        </div>
+      <div style={{ textAlign: "center", marginTop: "30px" }}>
+        <button className="btn" onClick={() => setLimit((prev) => prev + 5)}>
+          Load more matches
+        </button>
       </div>
     </div>
   );
@@ -102,87 +60,24 @@ export default function MatchesPage() {
 
 function MatchCard({ match }) {
   const isPlayed = match.status === "FT";
-
-  // Split score into home and away if available
-  const [homeScore, awayScore] = isPlayed
-    ? match.score.split(":").map((s) => parseInt(s))
-    : ["-", "-"];
+  const [homeScore, awayScore] = isPlayed ? match.score.split(":") : ["-", "-"];
 
   return (
-    <div
-      style={{
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        padding: "16px 20px",
-        marginBottom: "14px",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
-        display: "grid",
-        gridTemplateColumns: "1fr auto",
-        alignItems: "center",
-      }}
-    >
-      {/* Left: Teams */}
+    <div className="match-card">
       <div>
-        <div
-          style={{
-            fontSize: "16px",
-            fontWeight: "600",
-            color: "#222",
-          }}
-        >
-          {match.home}{" "}
-          <span style={{ color: "#aaa", fontWeight: "400" }}>vs</span>{" "}
-          {match.away}
-        </div>
-
-        <div
-          style={{
-            fontSize: "13px",
-            color: "#777",
-            marginTop: "6px",
-          }}
-        >
+        <strong>{match.home}</strong> vs <strong>{match.away}</strong>
+        <div className="match-info">
           {match.league} • {match.date} • {match.time}
         </div>
       </div>
 
-      {/* Right: Score & Status */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* Scores */}
-        <div
-          style={{
-            fontSize: "18px",
-            fontWeight: "700",
-            color: isPlayed ? "#222" : "#777",
-            minWidth: "60px",
-            textAlign: "center",
-          }}
-        >
-          {homeScore} : {awayScore}
-        </div>
-
-        {/* Status */}
-        <div
-          style={{
-            marginTop: "4px",
-            padding: "2px 8px",
-            borderRadius: "12px",
-            fontSize: "12px",
-            fontWeight: "600",
-            color: isPlayed ? "#2e7d32" : "#ff8f00",
-            backgroundColor: isPlayed ? "#e8f5e9" : "#fff3e0",
-          }}
-        >
+      <div className="match-right">
+        <div className="match-score">{homeScore} : {awayScore}</div>
+        <div className={`match-status ${isPlayed ? "played" : "upcoming"}`}>
           {isPlayed ? "FT" : "UPCOMING"}
         </div>
       </div>
     </div>
   );
 }
+

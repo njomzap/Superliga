@@ -19,78 +19,37 @@ function Login({ setUser }) {
       });
 
       const data = await res.json();
-
-      if (!res.ok) {
-        setMessage(data.message || "Login failed");
-        return;
-      }
+      if (!res.ok) return setMessage(data.message || "Login failed");
 
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
 
-      // Fetch user profile after login
       const profileRes = await fetch("http://localhost:5002/api/users/me", {
         headers: { Authorization: `Bearer ${data.accessToken}` },
       });
 
-      const profileData = await profileRes.json();
-      setUser(profileData);
-
+      setUser(await profileRes.json());
       navigate("/profile");
     } catch (err) {
       console.error(err);
-      setMessage("❌ Server error");
+      setMessage("Server error");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
+    <div className="login-box">
       <h2>Login</h2>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-      >
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{ padding: "10px" }}
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{ padding: "10px" }}
-        />
-
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            cursor: "pointer",
-            borderRadius: "5px",
-            backgroundColor: "#1e1e1e",
-            color: "#fff",
-            border: "none",
-          }}
-        >
-          Login
-        </button>
+      <form onSubmit={handleSubmit} className="form">
+        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email" required />
+        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" required />
+        <button className="btn">Login</button>
       </form>
 
-      {message && <p style={{ marginTop: "15px" }}>{message}</p>}
+      {message && <p style={{ marginTop: 15 }}>{message}</p>}
 
-      <p style={{ marginTop: "15px" }}>
-        Don’t have an account?{" "}
-        <Link to="/register" style={{ color: "#1e1e1e", fontWeight: "bold" }}>
-          Register here
-        </Link>
+      <p style={{ marginTop: 15 }}>
+        Don’t have an account? <Link to="/register">Register</Link>
       </p>
     </div>
   );
