@@ -2,11 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const healthRouter = require("./routes/health");
+const { swaggerUi, specs } = require("./swagger"); 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/health", healthRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 
 const matchesRouter = require("./routes/matches");
 app.use("/api/matches", matchesRouter);

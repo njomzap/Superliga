@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const { swaggerUi, specs } = require("./swagger");
 
 const app = express();
 
@@ -14,15 +15,18 @@ app.get("/health", (req, res) => {
   res.json({
     service: "users-service",
     status: "OK",
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
-// Users routes (corrected)
+// Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+// Users routes
 const usersRoutes = require("./routes/users.routes");
 app.use("/api/users", usersRoutes);
 
-// 404 handler
+// 404 handler (last!)
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
